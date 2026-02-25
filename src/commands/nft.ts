@@ -3,11 +3,11 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createNftCommand(): Command {
-  const cmd = new Command('nft').description('NFT queries');
+  const cmd = new Command('nft').description('NFT 查询');
 
   cmd
     .command('metadata <contract> <token_id>')
-    .description('Get NFT metadata')
+    .description('获取 NFT 元数据')
     .action(async (contract: string, tokenId: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -21,7 +21,7 @@ export function createNftCommand(): Command {
 
   cmd
     .command('collection <contract>')
-    .description('Get NFT collection')
+    .description('获取 NFT 集合信息')
     .action(async (contract: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -34,9 +34,9 @@ export function createNftCommand(): Command {
 
   cmd
     .command('collection-items <contract>')
-    .description('Get NFT collection items')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .description('获取 NFT 集合内所有项目')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (contract: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -52,10 +52,10 @@ export function createNftCommand(): Command {
 
   cmd
     .command('search <name>')
-    .description('Search NFTs by name')
-    .option('--contract <addr>', 'Contract address')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .description('按名称搜索 NFT 集合')
+    .option('--contract <addr>', '合约地址')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (name: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -72,16 +72,16 @@ export function createNftCommand(): Command {
 
   cmd
     .command('transfers')
-    .description('Get NFT transfers')
-    .option('--contract <addr>', 'Contract address')
+    .description('获取 NFT 转账记录')
+    .option('--contract <addr>', '合约地址')
     .option('--token-id <id>', 'Token ID')
-    .option('--address <addr>', 'Address')
-    .option('--from-block <n>', 'Start block number')
-    .option('--to-block <n>', 'End block number')
-    .option('--from-timestamp <n>', 'Start timestamp')
-    .option('--end-timestamp <n>', 'End timestamp')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .option('--address <addr>', '钱包地址')
+    .option('--from-block <n>', '起始区块号')
+    .option('--to-block <n>', '结束区块号')
+    .option('--from-timestamp <n>', '起始时间戳')
+    .option('--end-timestamp <n>', '结束时间戳')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -103,8 +103,8 @@ export function createNftCommand(): Command {
 
   cmd
     .command('owner <contract> <token_id>')
-    .description('Get NFT owner')
-    .option('--to-block <n>', 'Block number')
+    .description('获取 NFT 当前持有者')
+    .option('--to-block <n>', '区块号')
     .action(async (contract: string, tokenId: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -120,9 +120,9 @@ export function createNftCommand(): Command {
 
   cmd
     .command('owners <contract>')
-    .description('Get NFT owners')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .description('获取 NFT 集合所有持有者')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (contract: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -138,13 +138,13 @@ export function createNftCommand(): Command {
 
   cmd
     .command('owner-history <contract> <token_id>')
-    .description('Get NFT owner history')
-    .option('--from-block <n>', 'Start block number')
-    .option('--to-block <n>', 'End block number')
-    .option('--from-timestamp <n>', 'Start timestamp')
-    .option('--end-timestamp <n>', 'End timestamp')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .description('获取 NFT 持有者历史')
+    .option('--from-block <n>', '起始区块号')
+    .option('--to-block <n>', '结束区块号')
+    .option('--from-timestamp <n>', '起始时间戳')
+    .option('--end-timestamp <n>', '结束时间戳')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (contract: string, tokenId: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -165,7 +165,7 @@ export function createNftCommand(): Command {
 
   cmd
     .command('floor-price <contract>')
-    .description('Get NFT floor price')
+    .description('获取 NFT 地板价')
     .action(async (contract: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -178,9 +178,9 @@ export function createNftCommand(): Command {
 
   cmd
     .command('price-history <contract>')
-    .description('Get NFT price history')
-    .requiredOption('--from <timestamp>', 'Start timestamp')
-    .requiredOption('--to <timestamp>', 'End timestamp')
+    .description('获取 NFT 历史地板价')
+    .requiredOption('--from <timestamp>', '起始时间戳')
+    .requiredOption('--to <timestamp>', '结束时间戳')
     .action(async (contract: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -195,12 +195,12 @@ export function createNftCommand(): Command {
 
   cmd
     .command('trending')
-    .description('Get trending NFT collections')
-    .option('--range <period>', 'Time range', '7d')
-    .option('--exchange <name>', 'Exchange name')
-    .option('--sort <order>', 'Sort order')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .description('获取热门 NFT 集合')
+    .option('--range <period>', '时间范围', '7d')
+    .option('--exchange <name>', '交易所名称')
+    .option('--sort <order>', '排序方式')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -218,12 +218,12 @@ export function createNftCommand(): Command {
 
   cmd
     .command('rarity <contract>')
-    .description('Get NFT rarity')
+    .description('获取 NFT 稀有度')
     .option('--token-id <id>', 'Token ID')
-    .option('--rank-min <n>', 'Minimum rank')
-    .option('--rank-max <n>', 'Maximum rank')
-    .option('--page <n>', 'Page number')
-    .option('--limit <n>', 'Results per page')
+    .option('--rank-min <n>', '最低排名')
+    .option('--rank-max <n>', '最高排名')
+    .option('--page <n>', '页码')
+    .option('--limit <n>', '每页条数')
     .action(async (contract: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);

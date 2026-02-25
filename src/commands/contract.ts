@@ -3,16 +3,16 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createContractCommand(): Command {
-  const cmd = new Command('contract').description('Smart contract interactions');
+  const cmd = new Command('contract').description('智能合约交互');
 
   cmd
     .command('call')
-    .description('Call a read-only contract function')
-    .requiredOption('--address <addr>', 'Contract address')
-    .requiredOption('--function <name>', 'Function name')
-    .requiredOption('--abi <json>', 'Contract ABI (JSON string)')
-    .option('--params <json>', 'Function parameters (JSON array)', '[]')
-    .option('--to-block <n>', 'Block number')
+    .description('调用合约只读函数')
+    .requiredOption('--address <addr>', '合约地址')
+    .requiredOption('--function <name>', '函数名')
+    .requiredOption('--abi <json>', '合约 ABI（JSON 字符串）')
+    .option('--params <json>', '函数参数（JSON 数组）', '[]')
+    .option('--to-block <n>', '区块号')
     .action(async (cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);

@@ -3,11 +3,11 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createBlockCommand(): Command {
-  const cmd = new Command('block').description('Block queries');
+  const cmd = new Command('block').description('区块查询');
 
   cmd
     .command('latest')
-    .description('Get latest block number')
+    .description('获取最新区块号')
     .action(async () => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -17,7 +17,7 @@ export function createBlockCommand(): Command {
 
   cmd
     .command('detail <number>')
-    .description('Get block by number')
+    .description('按区块号查询区块详情')
     .action(async (number: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
