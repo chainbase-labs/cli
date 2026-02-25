@@ -16,12 +16,12 @@ const program = new Command();
 
 program
   .name('chainbase')
-  .description('Chainbase Web3 API 命令行工具')
+  .description('CLI for Chainbase Web3 API')
   .version('0.1.0')
-  .option('--chain <id>', '链 ID（默认从配置读取，否则为 1）')
-  .option('--pretty', '以人类可读格式输出', false)
-  .option('--page <n>', '页码', '1')
-  .option('--limit <n>', '每页条数', '20');
+  .option('--chain <id>', 'Chain ID (default: from config or 1)')
+  .option('--pretty', 'Pretty-print output for humans', false)
+  .option('--page <n>', 'Page number', '1')
+  .option('--limit <n>', 'Results per page', '20');
 
 program.addCommand(createConfigCommand());
 program.addCommand(createBlockCommand());

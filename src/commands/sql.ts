@@ -3,11 +3,11 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createSqlCommand(): Command {
-  const cmd = new Command('sql').description('SQL 查询与执行');
+  const cmd = new Command('sql').description('SQL queries and executions');
 
   cmd
     .command('execute <sql>')
-    .description('异步执行 SQL 语句')
+    .description('Execute a SQL query asynchronously')
     .action(async (sql: string) => {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);
@@ -17,7 +17,7 @@ export function createSqlCommand(): Command {
 
   cmd
     .command('status <execution_id>')
-    .description('查询执行状态')
+    .description('Check query execution status')
     .action(async (executionId: string) => {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);
@@ -27,7 +27,7 @@ export function createSqlCommand(): Command {
 
   cmd
     .command('results <execution_id>')
-    .description('获取执行结果')
+    .description('Get query execution results')
     .action(async (executionId: string) => {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);

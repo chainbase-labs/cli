@@ -3,11 +3,11 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createTxCommand(): Command {
-  const cmd = new Command('tx').description('交易查询');
+  const cmd = new Command('tx').description('Transaction queries');
 
   cmd
     .command('detail <hash>')
-    .description('按哈希查询交易详情')
+    .description('Get transaction by hash')
     .action(async (hash: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -17,13 +17,13 @@ export function createTxCommand(): Command {
 
   cmd
     .command('list <address>')
-    .description('查询账户交易列表')
-    .option('--from-block <n>', '起始区块号')
-    .option('--to-block <n>', '结束区块号')
-    .option('--from-timestamp <n>', '起始时间戳')
-    .option('--end-timestamp <n>', '结束时间戳')
-    .option('--page <n>', '页码')
-    .option('--limit <n>', '每页条数')
+    .description('Get transactions by account')
+    .option('--from-block <n>', 'Start block number')
+    .option('--to-block <n>', 'End block number')
+    .option('--from-timestamp <n>', 'Start timestamp')
+    .option('--end-timestamp <n>', 'End timestamp')
+    .option('--page <n>', 'Page number')
+    .option('--limit <n>', 'Results per page')
     .action(async (address: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);

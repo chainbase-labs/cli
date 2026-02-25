@@ -3,12 +3,12 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createBalanceCommand(): Command {
-  const cmd = new Command('balance').description('余额与账户查询');
+  const cmd = new Command('balance').description('Balance and account queries');
 
   cmd
     .command('native <address>')
-    .description('获取原生代币余额')
-    .option('--to-block <n>', '区块号')
+    .description('Get native token balance')
+    .option('--to-block <n>', 'Block number')
     .action(async (address: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -23,10 +23,10 @@ export function createBalanceCommand(): Command {
 
   cmd
     .command('tokens <address>')
-    .description('获取 ERC20 代币余额')
-    .option('--contract <addr>', '按合约地址筛选')
-    .option('--page <n>', '页码')
-    .option('--limit <n>', '每页条数')
+    .description('Get ERC20 token balances')
+    .option('--contract <addr>', 'Filter by contract address')
+    .option('--page <n>', 'Page number')
+    .option('--limit <n>', 'Results per page')
     .action(async (address: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -43,8 +43,8 @@ export function createBalanceCommand(): Command {
 
   cmd
     .command('portfolios <address>')
-    .description('获取 DeFi 组合持仓')
-    .option('--chains <ids>', '链 ID（逗号分隔）')
+    .description('Get DeFi portfolio positions')
+    .option('--chains <ids>', 'Comma-separated chain IDs')
     .action(async (address: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);
@@ -58,10 +58,10 @@ export function createBalanceCommand(): Command {
 
   cmd
     .command('nfts <address>')
-    .description('获取持有的 NFT 列表')
-    .option('--contract <addr>', '按合约地址筛选')
-    .option('--page <n>', '页码')
-    .option('--limit <n>', '每页条数')
+    .description('Get NFTs owned by address')
+    .option('--contract <addr>', 'Filter by contract address')
+    .option('--page <n>', 'Page number')
+    .option('--limit <n>', 'Results per page')
     .action(async (address: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);

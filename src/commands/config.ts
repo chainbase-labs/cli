@@ -3,11 +3,11 @@ import { setConfig, getConfig, listConfig } from '../config.js';
 import { formatOutput } from '../output.js';
 
 export function createConfigCommand(): Command {
-  const cmd = new Command('config').description('管理 CLI 配置');
+  const cmd = new Command('config').description('Manage CLI configuration');
 
   cmd
     .command('set <key> <value>')
-    .description('设置配置项（api-key, default-chain）')
+    .description('Set a config value (api-key, default-chain)')
     .action((key: string, value: string) => {
       setConfig(key, value);
       const pretty = cmd.parent?.opts().pretty ?? false;
@@ -16,7 +16,7 @@ export function createConfigCommand(): Command {
 
   cmd
     .command('get <key>')
-    .description('获取配置项')
+    .description('Get a config value')
     .action((key: string) => {
       const pretty = cmd.parent?.opts().pretty ?? false;
       let value = getConfig(key) ?? null;
@@ -26,7 +26,7 @@ export function createConfigCommand(): Command {
 
   cmd
     .command('list')
-    .description('列出所有配置项')
+    .description('List all config values')
     .action(() => {
       const pretty = cmd.parent?.opts().pretty ?? false;
       const config = listConfig();

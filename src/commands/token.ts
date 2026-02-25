@@ -3,11 +3,11 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createTokenCommand(): Command {
-  const cmd = new Command('token').description('代币查询');
+  const cmd = new Command('token').description('Token queries');
 
   cmd
     .command('metadata <contract>')
-    .description('获取代币元数据')
+    .description('Get token metadata')
     .action(async (contract: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -20,13 +20,13 @@ export function createTokenCommand(): Command {
 
   cmd
     .command('transfers')
-    .description('获取代币转账记录')
-    .option('--contract <addr>', '合约地址')
-    .option('--address <addr>', '钱包地址')
-    .option('--from-block <n>', '起始区块号')
-    .option('--to-block <n>', '结束区块号')
-    .option('--from-timestamp <n>', '起始时间戳')
-    .option('--end-timestamp <n>', '结束时间戳')
+    .description('Get token transfers')
+    .option('--contract <addr>', 'Contract address')
+    .option('--address <addr>', 'Wallet address')
+    .option('--from-block <n>', 'Start block number')
+    .option('--to-block <n>', 'End block number')
+    .option('--from-timestamp <n>', 'Start timestamp')
+    .option('--end-timestamp <n>', 'End timestamp')
     .action(async (cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -47,7 +47,7 @@ export function createTokenCommand(): Command {
 
   cmd
     .command('holders <contract>')
-    .description('获取代币持有者列表')
+    .description('Get token holders')
     .action(async (contract: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -63,7 +63,7 @@ export function createTokenCommand(): Command {
 
   cmd
     .command('top-holders <contract>')
-    .description('获取代币 Top 持有者')
+    .description('Get top token holders')
     .action(async (contract: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -79,7 +79,7 @@ export function createTokenCommand(): Command {
 
   cmd
     .command('price <contract>')
-    .description('获取代币价格')
+    .description('Get token price')
     .action(async (contract: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
@@ -92,9 +92,9 @@ export function createTokenCommand(): Command {
 
   cmd
     .command('price-history <contract>')
-    .description('获取代币历史价格')
-    .requiredOption('--from <timestamp>', '起始时间戳')
-    .requiredOption('--to <timestamp>', '结束时间戳')
+    .description('Get token price history')
+    .requiredOption('--from <timestamp>', 'Start timestamp')
+    .requiredOption('--to <timestamp>', 'End timestamp')
     .action(async (contract: string, cmdOpts: Record<string, string>) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);

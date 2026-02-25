@@ -3,11 +3,11 @@ import { createClient } from '../client.js';
 import { formatOutput } from '../output.js';
 
 export function createAddressCommand(): Command {
-  const cmd = new Command('address').description('地址查询');
+  const cmd = new Command('address').description('Address queries');
 
   cmd
     .command('labels <address>')
-    .description('获取地址标签')
+    .description('Get address labels')
     .action(async (address: string) => {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
