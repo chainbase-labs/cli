@@ -39,7 +39,7 @@ export class ChainbaseClient {
       data: options.data,
     });
     const body = response.data;
-    if (body && typeof body === 'object' && 'code' in body && body.code !== 0) {
+    if (body && typeof body === 'object' && 'code' in body && body.code !== 0 && body.code !== 200) {
       throw new Error(body.message || `API error code: ${body.code}`);
     }
     return body;
