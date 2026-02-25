@@ -17,7 +17,7 @@ npx chainbase-cli --help
 ## Quick Start
 
 ```bash
-# Set your API key (get one at https://console.chainbase.com)
+# Set your API key (get one at https://platform.chainbase.com)
 chainbase config set api-key YOUR_API_KEY
 
 # Get latest Ethereum block number
@@ -145,7 +145,13 @@ chainbase sql results <execution_id>                                # Get result
 
 ## Authentication
 
-The API key can be configured in three ways (in priority order):
+Get your free API key at [Chainbase Platform](https://platform.chainbase.com):
+
+1. Sign up / log in at https://platform.chainbase.com
+2. Navigate to the **API Keys** section in the dashboard
+3. Create a new API key and copy it
+
+The API key can be configured in two ways (in priority order):
 
 1. **Environment variable**: `CHAINBASE_API_KEY=xxx chainbase block latest`
 2. **Config file**: `chainbase config set api-key xxx` (stored at `~/.chainbase/config.json`, mode 0600)
