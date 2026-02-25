@@ -13,13 +13,17 @@ function getConfigPath(): string {
 function readConfigFile(): Record<string, string> {
   const configPath = getConfigPath();
   if (!fs.existsSync(configPath)) return {};
-  return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  try {
+    return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  } catch {
+    throw new Error(`Config file corrupted: ${configPath}\nDelete it and re-configure: chainbase config set api-key <your-key>`);
+  }
 }
 
 function writeConfigFile(config: Record<string, string>): void {
   const dir = getConfigDir();
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(getConfigPath(), JSON.stringify(config, null, 2));
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true, mode: 0o700 });
+  fs.writeFileSync(getConfigPath(), JSON.stringify(config, null, 2), { mode: 0o600 });
 }
 
 export function setConfig(key: string, value: string): void {

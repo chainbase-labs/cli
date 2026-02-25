@@ -21,7 +21,7 @@ export function createContractCommand(): Command {
         contract_address: cmdOpts.address,
         function_name: cmdOpts.function,
         abi: cmdOpts.abi,
-        params: JSON.parse(cmdOpts.params),
+        params: (() => { try { return JSON.parse(cmdOpts.params); } catch { throw new Error('--params 格式错误，请提供合法 JSON 数组，如 \'["0x..."]\''); } })(),
         ...(cmdOpts.toBlock && { to_block: cmdOpts.toBlock }),
       };
       const result = await client.post('/v1/contract/call', body);

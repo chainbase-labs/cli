@@ -148,8 +148,7 @@ chainbase sql results <execution_id>                                # Get result
 The API key can be configured in three ways (in priority order):
 
 1. **Environment variable**: `CHAINBASE_API_KEY=xxx chainbase block latest`
-2. **Config file**: `chainbase config set api-key xxx` (stored at `~/.chainbase/config.json`)
-3. **Default**: Uses the `demo` key (rate-limited)
+2. **Config file**: `chainbase config set api-key xxx` (stored at `~/.chainbase/config.json`, mode 0600)
 
 ## For AI Agents
 

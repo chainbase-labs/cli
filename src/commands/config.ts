@@ -19,8 +19,9 @@ export function createConfigCommand(): Command {
     .description('获取配置项')
     .action((key: string) => {
       const pretty = cmd.parent?.opts().pretty ?? false;
-      const value = getConfig(key);
-      formatOutput({ key, value: value ?? null }, pretty);
+      let value = getConfig(key) ?? null;
+      if (key === 'api-key' && value) value = '***' + value.slice(-4);
+      formatOutput({ key, value }, pretty);
     });
 
   cmd
