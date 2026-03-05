@@ -58,21 +58,21 @@ describe('output', () => {
     });
 
     it('displays x402 payment info when _x402 present and json=false', () => {
-      formatOutput({ code: 0, data: { price: 1.0 }, _x402: { txHash: '0xtx', from: '0xfrom', to: '0xto' } }, false);
+      formatOutput({ code: 0, data: { price: 1.0 }, _x402: { txHash: '0xtx', from: '0xfrom', network: 'base' } }, false);
       const output = getAllStdout();
       expect(output).toContain('Price');
       expect(output).toContain('x402 Payment');
       expect(output).toContain('0xtx');
       expect(output).toContain('0xfrom');
-      expect(output).toContain('0xto');
+      expect(output).toContain('base');
     });
 
     it('includes _x402 in JSON output when json=true', () => {
-      const data = { code: 0, data: { price: 1.0 }, _x402: { txHash: '0xtx', from: '0xfrom', to: '0xto' } };
+      const data = { code: 0, data: { price: 1.0 }, _x402: { txHash: '0xtx', from: '0xfrom', network: 'base' } };
       formatOutput(data, true);
       const output = stdoutSpy.mock.calls[0][0] as string;
       const parsed = JSON.parse(output);
-      expect(parsed._x402).toEqual({ txHash: '0xtx', from: '0xfrom', to: '0xto' });
+      expect(parsed._x402).toEqual({ txHash: '0xtx', from: '0xfrom', network: 'base' });
     });
   });
 
@@ -92,15 +92,15 @@ describe('output', () => {
 
   describe('formatPaymentInfo', () => {
     it('outputs payment block to stdout', () => {
-      formatPaymentInfo({ txHash: '0xabc123', from: '0xsender', to: '0xreceiver' });
+      formatPaymentInfo({ txHash: '0xabc123', from: '0xsender', network: 'base' });
       const output = getAllStdout();
       expect(output).toContain('x402 Payment');
       expect(output).toContain('Tx Hash');
       expect(output).toContain('0xabc123');
       expect(output).toContain('From');
       expect(output).toContain('0xsender');
-      expect(output).toContain('To');
-      expect(output).toContain('0xreceiver');
+      expect(output).toContain('Network');
+      expect(output).toContain('base');
     });
   });
 

@@ -33,7 +33,6 @@ vi.mock('viem/chains', () => ({
 vi.mock('@x402/axios', () => ({
   x402Client: vi.fn(function () { return {}; }),
   wrapAxiosWithPayment: vi.fn((_instance: unknown) => mockInstance),
-  decodePaymentResponseHeader: vi.fn((header: string) => JSON.parse(header)),
 }));
 
 vi.mock('@x402/evm', () => ({
@@ -135,21 +134,18 @@ describe('ChainbaseClient', () => {
     });
 
     it('returns payment info from response headers in x402 mode', async () => {
+      const paymentData = { success: true, transaction: '0xtxhash', payer: '0xfromaddr', network: 'base' };
       mockRequest.mockResolvedValue({
         data: { code: 0, data: 'ok' },
         headers: {
-          'payment-response': JSON.stringify({
-            txHash: '0xtxhash',
-            from: '0xfromaddr',
-            to: '0xtoaddr',
-          }),
+          'x-payment-response': Buffer.from(JSON.stringify(paymentData)).toString('base64'),
         },
       });
       const result = await client.get('/v1/token/price', { chain_id: 1 });
       expect(result).toEqual({
         code: 0,
         data: 'ok',
-        _x402: { txHash: '0xtxhash', from: '0xfromaddr', to: '0xtoaddr' },
+        _x402: { txHash: '0xtxhash', from: '0xfromaddr', network: 'base' },
       });
     });
 

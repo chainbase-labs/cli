@@ -3,7 +3,7 @@ import chalk from 'chalk';
 export interface PaymentInfo {
   txHash: string;
   from: string;
-  to: string;
+  network?: string;
 }
 
 /**
@@ -87,7 +87,9 @@ export function formatPaymentInfo(payment: PaymentInfo): void {
   process.stdout.write(chalk.yellow('── x402 Payment ──') + '\n');
   process.stdout.write(`${chalk.cyan('Tx Hash:')}   ${payment.txHash}\n`);
   process.stdout.write(`${chalk.cyan('From:')}      ${payment.from}\n`);
-  process.stdout.write(`${chalk.cyan('To:')}        ${payment.to}\n`);
+  if (payment.network) {
+    process.stdout.write(`${chalk.cyan('Network:')}   ${payment.network}\n`);
+  }
 }
 
 export function formatOutput(data: unknown, json: boolean): void {

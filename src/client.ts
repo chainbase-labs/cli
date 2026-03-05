@@ -2,7 +2,7 @@ import axios, { type AxiosInstance } from 'axios';
 import { createPublicClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { base } from 'viem/chains';
-import { x402Client, wrapAxiosWithPayment, decodePaymentResponseHeader } from '@x402/axios';
+import { x402Client, wrapAxiosWithPayment } from '@x402/axios';
 import { toClientEvmSigner } from '@x402/evm';
 import { registerExactEvmScheme } from '@x402/evm/exact/client';
 import { getApiKey, getDefaultChain, getPrivateKey, isX402Mode } from './config.js';
@@ -75,11 +75,11 @@ export class ChainbaseClient {
       throw new Error(body.message || `API error code: ${body.code}`);
     }
     if (this.x402Enabled && body && typeof body === 'object') {
-      const paymentHeader = response.headers?.['payment-response'];
+      const paymentHeader = response.headers?.['x-payment-response'];
       if (paymentHeader) {
         try {
-          const payment = decodePaymentResponseHeader(paymentHeader as string);
-          return { ...body, _x402: { txHash: payment.txHash, from: payment.from, to: payment.to } };
+          const decoded = JSON.parse(Buffer.from(paymentHeader as string, 'base64').toString());
+          return { ...body, _x402: { txHash: decoded.transaction, from: decoded.payer, network: decoded.network } };
         } catch {
           // payment header decode failed, return data without payment info
         }
