@@ -33,6 +33,7 @@ vi.mock('viem/chains', () => ({
 vi.mock('@x402/axios', () => ({
   x402Client: vi.fn(function () { return {}; }),
   wrapAxiosWithPayment: vi.fn((_instance: unknown) => mockInstance),
+  decodePaymentResponseHeader: vi.fn((header: string) => JSON.parse(header)),
 }));
 
 vi.mock('@x402/evm', () => ({
@@ -131,6 +132,34 @@ describe('ChainbaseClient', () => {
     it('throws error for SQL API /execution/ paths', async () => {
       await expect(client.get('/execution/status', { task_id: '123' }))
         .rejects.toThrow('SQL API does not support x402 payment mode');
+    });
+
+    it('returns payment info from response headers in x402 mode', async () => {
+      mockRequest.mockResolvedValue({
+        data: { code: 0, data: 'ok' },
+        headers: {
+          'payment-response': JSON.stringify({
+            txHash: '0xtxhash',
+            from: '0xfromaddr',
+            to: '0xtoaddr',
+          }),
+        },
+      });
+      const result = await client.get('/v1/token/price', { chain_id: 1 });
+      expect(result).toEqual({
+        code: 0,
+        data: 'ok',
+        _x402: { txHash: '0xtxhash', from: '0xfromaddr', to: '0xtoaddr' },
+      });
+    });
+
+    it('returns body without _x402 when no payment-response header', async () => {
+      mockRequest.mockResolvedValue({
+        data: { code: 0, data: 'ok' },
+        headers: {},
+      });
+      const result = await client.get('/v1/token/price', { chain_id: 1 });
+      expect(result).toEqual({ code: 0, data: 'ok' });
     });
   });
 });
