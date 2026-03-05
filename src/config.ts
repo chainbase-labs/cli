@@ -52,3 +52,18 @@ export function getApiKey(): string {
 export function getDefaultChain(): string {
   return getConfig('default-chain') || '1';
 }
+
+export function getPrivateKey(): string {
+  const envKey = process.env.CHAINBASE_PRIVATE_KEY;
+  if (envKey) return envKey;
+  const fileKey = getConfig('private-key');
+  if (fileKey) return fileKey;
+  throw new Error(
+    'No private key configured. Run: chainbase config set private-key <your-key>\nOr set CHAINBASE_PRIVATE_KEY environment variable.',
+  );
+}
+
+export function isX402Mode(opts: { x402?: boolean }): boolean {
+  if (opts.x402 !== undefined) return opts.x402;
+  return getConfig('payment-mode') === 'x402';
+}
