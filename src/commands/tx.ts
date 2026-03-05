@@ -12,7 +12,7 @@ export function createTxCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
       const result = await client.get('/v1/tx/detail', { chain_id: chainId, hash });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -38,7 +38,7 @@ export function createTxCommand(): Command {
       if (cmdOpts.fromTimestamp) params.from_timestamp = cmdOpts.fromTimestamp;
       if (cmdOpts.endTimestamp) params.end_timestamp = cmdOpts.endTimestamp;
       const result = await client.get('/v1/account/txs', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

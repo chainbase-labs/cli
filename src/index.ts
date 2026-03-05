@@ -19,7 +19,7 @@ program
   .description('CLI for Chainbase Web3 API')
   .version('0.1.0')
   .option('--chain <id>', 'Chain ID (default: from config or 1)')
-  .option('--pretty', 'Pretty-print output for humans', false)
+  .option('--json', 'Output raw JSON (for AI agents)', false)
   .option('--page <n>', 'Page number', '1')
   .option('--limit <n>', 'Results per page', '20')
   .option('--x402', 'Enable x402 payment mode', false);
@@ -40,7 +40,7 @@ async function main() {
     await program.parseAsync();
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
-    formatError(message, program.opts().pretty);
+    formatError(message, program.opts().json);
     process.exit(1);
   }
 }

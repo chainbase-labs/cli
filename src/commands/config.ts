@@ -10,29 +10,29 @@ export function createConfigCommand(): Command {
     .description('Set a config value (api-key, default-chain)')
     .action((key: string, value: string) => {
       setConfig(key, value);
-      const pretty = cmd.parent?.opts().pretty ?? false;
-      formatOutput({ status: 'ok', key, value: key === 'api-key' ? '***' : value }, pretty);
+      const json = cmd.parent?.opts().json ?? false;
+      formatOutput({ status: 'ok', key, value: key === 'api-key' ? '***' : value }, json);
     });
 
   cmd
     .command('get <key>')
     .description('Get a config value')
     .action((key: string) => {
-      const pretty = cmd.parent?.opts().pretty ?? false;
+      const json = cmd.parent?.opts().json ?? false;
       let value = getConfig(key) ?? null;
       if (key === 'api-key' && value) value = '***' + value.slice(-4);
-      formatOutput({ key, value }, pretty);
+      formatOutput({ key, value }, json);
     });
 
   cmd
     .command('list')
     .description('List all config values')
     .action(() => {
-      const pretty = cmd.parent?.opts().pretty ?? false;
+      const json = cmd.parent?.opts().json ?? false;
       const config = listConfig();
       const safe = { ...config };
       if (safe['api-key']) safe['api-key'] = '***' + safe['api-key'].slice(-4);
-      formatOutput(safe, pretty);
+      formatOutput(safe, json);
     });
 
   return cmd;

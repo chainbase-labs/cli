@@ -12,7 +12,7 @@ export function createSqlCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);
       const result = await client.post('/query/execute', { sql });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -22,7 +22,7 @@ export function createSqlCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);
       const result = await client.get(`/execution/${executionId}/status`, {});
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -32,7 +32,7 @@ export function createSqlCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client } = createClient(opts);
       const result = await client.get(`/execution/${executionId}/results`, {});
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

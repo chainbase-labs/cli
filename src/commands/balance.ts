@@ -18,7 +18,7 @@ export function createBalanceCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/account/balance', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -38,7 +38,7 @@ export function createBalanceCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/account/tokens', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -53,7 +53,7 @@ export function createBalanceCommand(): Command {
       };
       if (cmdOpts.chains) params.chain_id = cmdOpts.chains.split(',');
       const result = await client.get('/v1/account/portfolios', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -73,7 +73,7 @@ export function createBalanceCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/account/nfts', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

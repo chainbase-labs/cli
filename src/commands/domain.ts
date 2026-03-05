@@ -18,7 +18,7 @@ export function createDomainCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/account/ens', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -34,7 +34,7 @@ export function createDomainCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/ens/records', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -50,7 +50,7 @@ export function createDomainCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/ens/reverse', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -66,7 +66,7 @@ export function createDomainCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/space-id/records', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -82,7 +82,7 @@ export function createDomainCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/space-id/reverse', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

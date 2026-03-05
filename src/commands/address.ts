@@ -12,7 +12,7 @@ export function createAddressCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
       const result = await client.get('/v1/address/labels', { chain_id: chainId, address });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

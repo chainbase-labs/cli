@@ -12,7 +12,7 @@ export function createBlockCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
       const result = await client.get('/v1/block/number/latest', { chain_id: chainId });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -22,7 +22,7 @@ export function createBlockCommand(): Command {
       const opts = cmd.parent!.opts();
       const { client, chainId } = createClient(opts);
       const result = await client.get('/v1/block/detail', { chain_id: chainId, number });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

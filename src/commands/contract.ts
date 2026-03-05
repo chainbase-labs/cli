@@ -25,7 +25,7 @@ export function createContractCommand(): Command {
         ...(cmdOpts.toBlock && { to_block: cmdOpts.toBlock }),
       };
       const result = await client.post('/v1/contract/call', body);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

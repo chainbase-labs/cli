@@ -16,7 +16,7 @@ export function createNftCommand(): Command {
         contract_address: contract,
         token_id: tokenId,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -29,7 +29,7 @@ export function createNftCommand(): Command {
         chain_id: chainId,
         contract_address: contract,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -47,7 +47,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/collection/items', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -67,7 +67,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/search', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -98,7 +98,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/transfers', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -115,7 +115,7 @@ export function createNftCommand(): Command {
       };
       if (cmdOpts.toBlock) params.to_block = cmdOpts.toBlock;
       const result = await client.get('/v1/nft/owner', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -133,7 +133,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/owners', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -160,7 +160,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/owner/history', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -173,7 +173,7 @@ export function createNftCommand(): Command {
         chain_id: chainId,
         contract_address: contract,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -190,7 +190,7 @@ export function createNftCommand(): Command {
         from_timestamp: cmdOpts.from,
         end_timestamp: cmdOpts.to,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -213,7 +213,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/collection/trending', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -237,7 +237,7 @@ export function createNftCommand(): Command {
       if (cmdOpts.page) params.page = cmdOpts.page;
       if (cmdOpts.limit) params.limit = cmdOpts.limit;
       const result = await client.get('/v1/nft/rarity', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;

@@ -15,7 +15,7 @@ export function createTokenCommand(): Command {
         chain_id: chainId,
         contract_address: contract,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -42,7 +42,7 @@ export function createTokenCommand(): Command {
       if (opts.page) params.page = opts.page;
       if (opts.limit) params.limit = opts.limit;
       const result = await client.get('/v1/token/transfers', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -58,7 +58,7 @@ export function createTokenCommand(): Command {
       if (opts.page) params.page = opts.page;
       if (opts.limit) params.limit = opts.limit;
       const result = await client.get('/v1/token/holders', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -74,7 +74,7 @@ export function createTokenCommand(): Command {
       if (opts.page) params.page = opts.page;
       if (opts.limit) params.limit = opts.limit;
       const result = await client.get('/v1/token/top-holders', params);
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -87,7 +87,7 @@ export function createTokenCommand(): Command {
         chain_id: chainId,
         contract_address: contract,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   cmd
@@ -104,7 +104,7 @@ export function createTokenCommand(): Command {
         from_timestamp: cmdOpts.from,
         end_timestamp: cmdOpts.to,
       });
-      formatOutput(result, opts.pretty);
+      formatOutput(result, opts.json);
     });
 
   return cmd;
