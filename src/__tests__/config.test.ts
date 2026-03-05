@@ -85,9 +85,9 @@ describe('config', () => {
       expect(isX402Mode({})).toBe(true);
     });
 
-    it('flag false overrides config x402', () => {
+    it('falls back to config when flag is false (Commander default)', () => {
       setConfig('payment-mode', 'x402');
-      expect(isX402Mode({ x402: false })).toBe(false);
+      expect(isX402Mode({ x402: false })).toBe(true);
     });
   });
 });

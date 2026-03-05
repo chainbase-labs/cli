@@ -118,7 +118,7 @@ describe('ChainbaseClient', () => {
       mockRequest.mockResolvedValue({ data: { code: 0, data: 'ok' } });
       await client.get('/v1/token/price', { chain_id: 1 });
       expect(mockRequest).toHaveBeenCalledWith(expect.objectContaining({
-        url: 'https://api.chainbase.com/v1/v1/token/price',
+        url: 'https://api.chainbase.com/v1/token/price',
         headers: expect.objectContaining({ 'x-api-key': 'x402' }),
       }));
     });

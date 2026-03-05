@@ -64,6 +64,6 @@ export function getPrivateKey(): string {
 }
 
 export function isX402Mode(opts: { x402?: boolean }): boolean {
-  if (opts.x402 !== undefined) return opts.x402;
+  if (opts.x402) return true;
   return getConfig('payment-mode') === 'x402';
 }

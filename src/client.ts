@@ -9,7 +9,7 @@ import { getApiKey, getDefaultChain, getPrivateKey, isX402Mode } from './config.
 
 const WEB3_BASE = 'https://api.chainbase.online';
 const SQL_BASE = 'https://api.chainbase.com/api/v1';
-const X402_BASE = 'https://api.chainbase.com/v1';
+const X402_BASE = 'https://api.chainbase.com';
 
 interface X402Options {
   privateKey: string;
