@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { getConfig, setConfig, listConfig, getApiKey, getConfigDir } from '../config.js';
+import { getConfig, setConfig, listConfig, getApiKey, getConfigDir, getPrivateKey, isX402Mode } from '../config.js';
 
 describe('config', () => {
   let tmpDir: string;
@@ -47,5 +47,47 @@ describe('config', () => {
 
   it('throws when no api key is configured', () => {
     expect(() => getApiKey()).toThrow();
+  });
+
+  describe('getPrivateKey', () => {
+    it('env var CHAINBASE_PRIVATE_KEY overrides config file', () => {
+      setConfig('private-key', '0xfromfile');
+      vi.stubEnv('CHAINBASE_PRIVATE_KEY', '0xfromenv');
+      expect(getPrivateKey()).toBe('0xfromenv');
+    });
+
+    it('falls back to config file when env var is empty', () => {
+      vi.stubEnv('CHAINBASE_PRIVATE_KEY', '');
+      setConfig('private-key', '0xfromfile');
+      expect(getPrivateKey()).toBe('0xfromfile');
+    });
+
+    it('throws when no private key is configured', () => {
+      expect(() => getPrivateKey()).toThrow('No private key configured');
+    });
+  });
+
+  describe('isX402Mode', () => {
+    it('returns true when flag is true', () => {
+      expect(isX402Mode({ x402: true })).toBe(true);
+    });
+
+    it('returns false when flag is false and no config', () => {
+      expect(isX402Mode({ x402: false })).toBe(false);
+    });
+
+    it('returns false when flag is undefined and no config', () => {
+      expect(isX402Mode({})).toBe(false);
+    });
+
+    it('returns true when flag is undefined but config is x402', () => {
+      setConfig('payment-mode', 'x402');
+      expect(isX402Mode({})).toBe(true);
+    });
+
+    it('falls back to config when flag is false (Commander default)', () => {
+      setConfig('payment-mode', 'x402');
+      expect(isX402Mode({ x402: false })).toBe(true);
+    });
   });
 });
