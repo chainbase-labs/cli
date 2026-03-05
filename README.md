@@ -41,16 +41,19 @@ chainbase token price 0x55d398326f99059fF775485246999027B3197955 --chain 56
 | `--pretty` | Human-readable output | `false` |
 | `--page <n>` | Page number | `1` |
 | `--limit <n>` | Results per page | `20` |
+| `--x402` | Enable x402 payment mode | `false` |
 
 ## Commands
 
 ### `config` — Configuration
 
 ```bash
-chainbase config set api-key <key>      # Set API key
-chainbase config set default-chain 137  # Set default chain to Polygon
-chainbase config get api-key            # Get a config value
-chainbase config list                   # List all config
+chainbase config set api-key <key>       # Set API key
+chainbase config set default-chain 137   # Set default chain to Polygon
+chainbase config set private-key 0x...   # Set wallet private key (for x402)
+chainbase config set payment-mode x402   # Enable x402 payment mode
+chainbase config get api-key             # Get a config value
+chainbase config list                    # List all config
 ```
 
 ### `block` — Block Queries
@@ -145,6 +148,8 @@ chainbase sql results <execution_id>                                # Get result
 
 ## Authentication
 
+### API Key (Traditional)
+
 Get your free API key at [Chainbase Platform](https://platform.chainbase.com):
 
 1. Sign up / log in at https://platform.chainbase.com
@@ -155,6 +160,31 @@ The API key can be configured in two ways (in priority order):
 
 1. **Environment variable**: `CHAINBASE_API_KEY=xxx chainbase block latest`
 2. **Config file**: `chainbase config set api-key xxx` (stored at `~/.chainbase/config.json`, mode 0600)
+
+### x402 Payment Mode
+
+[x402](https://docs.chainbase.com/chainbase-ai/x402) is an open standard by Coinbase that enables pay-per-call API access via on-chain USDC micropayments ($0.002 per call). No API key subscription needed — just a wallet with USDC.
+
+**Setup:**
+
+```bash
+# Configure your wallet private key
+chainbase config set private-key 0x...
+
+# Use x402 for a single command
+chainbase --x402 token price 0xdac17f958d2ee523a2206206994597c13d831ec7
+
+# Or enable x402 permanently
+chainbase config set payment-mode x402
+chainbase token price 0xdac17f958d2ee523a2206206994597c13d831ec7
+```
+
+**Private key resolution** (in priority order):
+
+1. **Environment variable**: `CHAINBASE_PRIVATE_KEY=0x...`
+2. **Config file**: `chainbase config set private-key 0x...`
+
+> **Note:** x402 supports all Web3 API endpoints. SQL API endpoints (`sql execute`, `sql status`, `sql results`) are not supported in x402 mode.
 
 ## For AI Agents
 
