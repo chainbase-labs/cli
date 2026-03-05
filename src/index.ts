@@ -21,7 +21,8 @@ program
   .option('--chain <id>', 'Chain ID (default: from config or 1)')
   .option('--pretty', 'Pretty-print output for humans', false)
   .option('--page <n>', 'Page number', '1')
-  .option('--limit <n>', 'Results per page', '20');
+  .option('--limit <n>', 'Results per page', '20')
+  .option('--x402', 'Enable x402 payment mode', false);
 
 program.addCommand(createConfigCommand());
 program.addCommand(createBlockCommand());
