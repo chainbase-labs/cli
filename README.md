@@ -1,6 +1,6 @@
 # Chainbase CLI
 
-A command-line interface for the [Chainbase Web3 API](https://docs.chainbase.com/api-reference/overview). Designed for both human use and AI agent automation — outputs JSON by default, with an optional `--pretty` flag for human-readable format.
+A command-line interface for the [Chainbase Web3 API](https://docs.chainbase.com/api-reference/overview). Designed for both human use and AI agent automation — outputs human-readable key-value format by default, with `--json` for machine-parseable JSON output. Supports [x402](https://docs.chainbase.com/chainbase-ai/x402) pay-per-call micropayments.
 
 ## Install
 
@@ -38,7 +38,7 @@ chainbase token price 0x55d398326f99059fF775485246999027B3197955 --chain 56
 | Option | Description | Default |
 |--------|-------------|---------|
 | `--chain <id>` | Chain ID | `1` (Ethereum) |
-| `--pretty` | Human-readable output | `false` |
+| `--json` | Output raw JSON (for AI agents) | `false` |
 | `--page <n>` | Page number | `1` |
 | `--limit <n>` | Results per page | `20` |
 | `--x402` | Enable x402 payment mode | `false` |
@@ -186,11 +186,43 @@ chainbase token price 0xdac17f958d2ee523a2206206994597c13d831ec7
 
 > **Note:** x402 supports all Web3 API endpoints. SQL API endpoints (`sql execute`, `sql status`, `sql results`) are not supported in x402 mode.
 
+## Output Format
+
+By default, results are displayed in a human-readable key-value format:
+
+```bash
+$ chainbase token price 0xdac17f958d2ee523a2206206994597c13d831ec7
+Price:  1.00007
+Symbol:  ZUSDT
+Decimals:  0
+Updated At:  2025-03-05T19:30:00Z
+```
+
+When using x402 payment mode, transaction details are shown below the result:
+
+```bash
+$ chainbase --x402 token price 0xdac17f958d2ee523a2206206994597c13d831ec7
+Price:  1.00007
+Symbol:  ZUSDT
+
+── x402 Payment ──
+Tx Hash:   0x57951c54ed9138edc16274238777a3fdf67cc95ec62c74816daeab98f691673e
+From:      0xb712b83E1722FE0177a40ce97e4C0637A739f0f9
+Network:   base
+```
+
+Use `--json` for machine-parseable JSON output (recommended for AI agents):
+
+```bash
+$ chainbase --json token price 0xdac17f958d2ee523a2206206994597c13d831ec7
+{"code":0,"message":"ok","data":{"price":1.00007,"symbol":"ZUSDT"}}
+```
+
 ## For AI Agents
 
 This CLI is designed to be controlled by AI agents. Key features:
 
-- **JSON output by default** — machine-parseable, no colors or formatting
+- **JSON mode** — use `--json` for machine-parseable output, no colors or formatting
 - **Consistent error format** — errors output as `{"error":"message"}` to stderr
 - **Discoverable** — `chainbase --help` and `chainbase <command> --help` list all available commands
 - **Predictable** — every command follows the same pattern: `chainbase <group> <action> [args] [options]`
@@ -199,10 +231,10 @@ Example agent usage:
 
 ```bash
 # Parse output directly
-PRICE=$(chainbase token price 0xdac17f958d2ee523a2206206994597c13d831ec7 | jq '.data.price')
+PRICE=$(chainbase --json token price 0xdac17f958d2ee523a2206206994597c13d831ec7 | jq '.data.price')
 
 # Check if command succeeded
-if chainbase balance native 0x... 2>/dev/null; then
+if chainbase --json balance native 0x... 2>/dev/null; then
   echo "Success"
 fi
 ```
