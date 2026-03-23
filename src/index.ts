@@ -10,6 +10,7 @@ import { createNftCommand } from './commands/nft.js';
 import { createBalanceCommand } from './commands/balance.js';
 import { createDomainCommand } from './commands/domain.js';
 import { createSqlCommand } from './commands/sql.js';
+import { createTopsCommand } from './commands/tops.js';
 import { formatError } from './output.js';
 
 const program = new Command();
@@ -34,6 +35,7 @@ program.addCommand(createNftCommand());
 program.addCommand(createBalanceCommand());
 program.addCommand(createDomainCommand());
 program.addCommand(createSqlCommand());
+program.addCommand(createTopsCommand());
 
 async function main() {
   try {

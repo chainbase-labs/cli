@@ -142,6 +142,39 @@ export interface AddressLabel {
   labels: string[];
 }
 
+// Tops types
+export interface TopsXUser {
+  user_id: string;
+  name: string;
+  screen_name: string;
+  profile_image: string;
+  blue_verified: boolean;
+}
+
+export interface TopsTweet {
+  id: string;
+  text: string;
+  media_json: string;
+  user: TopsXUser;
+}
+
+export interface TopsStory {
+  id: string;
+  keyword: string;
+  summary: string;
+  score: number;
+  current_rank: number;
+  rank_status: string;
+  is_new: boolean;
+  is_manual: boolean;
+  source_type: string;
+  authors: string[];
+  tweet_urls: string[];
+  analysis_time: string;
+  first_tweet_time: string;
+  snapshot_time: string;
+}
+
 // SQL types
 export interface SqlQueryResult {
   task_id: string;
