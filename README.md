@@ -137,6 +137,19 @@ chainbase sql status <execution_id>                                 # Check stat
 chainbase sql results <execution_id>                                # Get results
 ```
 
+### `tops` — Crypto Social Intelligence
+
+Powered by [Tops](https://tops.chainbase.com). **No API key required.** Rate limited per IP: 10 req/s, 60 req/min, 600 req/hour.
+
+```bash
+chainbase tops trending                        # Trending crypto topics (English)
+chainbase tops trending --language zh          # Trending topics in Chinese (zh/en/ko)
+chainbase tops topic <topic_id>               # Structured details for a topic
+chainbase tops posts <topic_id>               # Twitter/X posts for a topic
+chainbase tops mentions "Restaking"           # Search recent X mentions by keyword
+chainbase tops search "AI Agent"              # Search narrative candidate topics by keyword
+```
+
 ## Supported Chains
 
 | Chain | ID | Chain | ID |
