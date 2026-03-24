@@ -1,7 +1,7 @@
 {
   "name": "chainbase-cli",
-  "version": "0.3.0",
-  "description": "CLI for Chainbase Web3 API",
+  "version": "0.4.0",
+  "description": "CLI for Chainbase Web3 API and Tops crypto social intelligence",
   "type": "module",
   "bin": {
     "chainbase": "./dist/index.js"
